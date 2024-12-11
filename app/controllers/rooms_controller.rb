@@ -1,14 +1,11 @@
 class RoomsController < ApplicationController
   def index
-    if params[:query].present?
-      @rooms = Room.joins(:hotel).where("hotels.city ILIKE ?", "%#{params[:query]}%")
-    else
-      @rooms = Room.all
-    end
+    @rooms = Room.all
   end
 
   def show
     @room = Room.find(params[:id])
+    @booking = Booking.new
   end
 
   def new

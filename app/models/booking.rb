@@ -2,8 +2,8 @@ class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :room
 
-  validates :starts_at, presence: { message: "Start date is required" }
-  validates :ends_at, presence: { message: "End date is required" }
+  validates :starts_at, presence: true
+  validates :ends_at, presence: true
   validate :end_date_after_start_date
 
   private
@@ -12,7 +12,7 @@ class Booking < ApplicationRecord
     return if ends_at.blank? || starts_at.blank?
 
     if ends_at < starts_at
-      errors.add(:ends_at, "End date must be after start date")
+      errors.add(:ends_at, "must be after start date")
     end
   end
 end
