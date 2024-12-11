@@ -1,0 +1,20 @@
+.banner {
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), asset-url('cozy_bedroom.png');
+  background-size: cover;
+  background-position: center;
+  padding: 150px 0;
+  margin-bottom: 40px;
+
+  h1 {
+    color: white;
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  p {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+}
