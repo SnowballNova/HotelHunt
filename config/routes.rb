@@ -1,14 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, sign_out_via: [:get, :delete]
 
   root to: "pages#home"
 
-  resources :hotels do
-    resources :rooms, only: [:new, :create]
-  end
-
-  resources :rooms do
-    resources :bookings, only: [:new, :create]
+  resources :hotels, only: [:index, :show]
+  resources :rooms, only: [:index, :show] do
+    resources :bookings, only: [:create]
   end
 
   resources :bookings, except: [:new, :create]

@@ -1,4 +1,4 @@
-<div class="banner">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= image_path('cozy_bedroom.png') %>');">
   <div class="container">
     <h1>Find your perfect stay</h1>
     <p>Discover a variety of affordable rooms, from cozy stays to luxurious getaways, and book instantly.</p>
@@ -15,7 +15,7 @@
     <% @hotels.first(4).each do |hotel| %>
       <div class="col-md-3">
         <div class="card hotel-card">
-          <img src="https://source.unsplash.com/random/800x600/?hotel" class="card-img-top" alt="<%= hotel.name %>">
+          <%= image_tag "seaside_hotel.png", class: "card-img-top", alt: hotel.name %>
           <div class="card-body">
             <h5 class="card-title"><%= hotel.name %></h5>
             <p class="card-text"><%= hotel.address %></p>
@@ -24,7 +24,7 @@
                 From <%= number_to_currency(hotel.rooms.minimum(:price_per_night)) %> / night
               </small>
             </p>
-            <%= link_to "View Details", hotel_path(hotel), class: "btn btn-outline-primary" %>
+            <%= link_to "View Details", hotel_path(hotel), class: "btn btn-outline-coral" %>
           </div>
         </div>
       </div>
