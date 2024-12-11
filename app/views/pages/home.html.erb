@@ -1,2 +1,17 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="header">
+  <div class="header-content">
+    <h1>Find Your Perfect Room at the Best Price</h1>
+    <p>Discover a variety of affordable rooms, from cozy stays to luxurious getaways, and book instantly.</p>
+
+    <%= form_with url: bedrooms_path, method: :get, class: "search-form" do |f| %>
+      <div class="search-bar">
+        <%= f.text_field :query,
+            placeholder: "Enter a city",
+            class: "search-input",
+            value: params[:query]
+        %>
+        <%= f.submit "Search", class: "btn btn-dark" %>
+      </div>
+    <% end %>
+  </div>
+</div>
