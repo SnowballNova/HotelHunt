@@ -3,28 +3,50 @@
     <div class="col-md-8">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Room Details</h1>
-        <%= link_to "Back to All Rooms", rooms_path, class: "btn btn-outline-secondary" %>
+        <%= link_to rooms_path, class: "btn btn-outline-coral" do %>
+          <i class="fas fa-arrow-left me-2"></i>Back to Rooms
+        <% end %>
       </div>
 
-      <div class="card">
+      <div class="card border-0 shadow-sm">
         <img src="https://source.unsplash.com/random/800x600/?hotel-room" class="card-img-top" alt="Room">
         <div class="card-body">
           <h5 class="card-title">Room for <%= pluralize(@room.capacity, 'person') %></h5>
           <p class="card-text">
             <strong><%= number_to_currency(@room.price_per_night) %></strong> / night
           </p>
+          <p class="card-text">
+            <i class="fas fa-map-marker-alt text-muted me-2"></i>
+            <%= @room.hotel.address %>
+          </p>
         </div>
       </div>
     </div>
 
     <div class="col-md-4">
-      <div class="card">
+      <div class="card border-0 shadow-sm">
         <div class="card-body">
-          <h5 class="card-title">Book this room</h5>
-          <%= simple_form_for [@room, @booking] do |f| %>
-            <%= f.input :starts_at, as: :string, input_html: { data: { controller: "flatpickr" } } %>
-            <%= f.input :ends_at, as: :string, input_html: { data: { controller: "flatpickr" } } %>
-            <%= f.submit "Book Now", class: "btn btn-primary w-100" %>
+          <h5 class="card-title mb-4">Book this room</h5>
+
+          <%= simple_form_for([@room, Booking.new], html: { data: { controller: "flatpickr" } }) do |f| %>
+            <%= f.input :starts_at,
+                        as: :string,
+                        label: "Select dates",
+                        placeholder: "Check-in ➝ Check-out",
+                        wrapper_html: { class: "mb-3" },
+                        input_html: {
+                          data: { flatpickr_target: "startTime" }
+                        } %>
+
+            <%= f.input :ends_at,
+                        as: :string,
+                        label: false,
+                        input_html: {
+                          data: { flatpickr_target: "endTime" },
+                          class: "d-none"
+                        } %>
+
+            <%= f.submit "Book Now", class: "btn btn-coral w-100" %>
           <% end %>
         </div>
       </div>

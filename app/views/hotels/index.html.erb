@@ -1,26 +1,45 @@
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Our Hotels</h1>
-    <%= link_to "Back to Home", root_path, class: "btn btn-outline-secondary" %>
+    <div>
+      <h1 class="mb-0">Our Hotels</h1>
+      <p class="text-muted">Find your perfect accommodation</p>
+    </div>
+    <%= link_to root_path, class: "btn btn-outline-coral" do %>
+      <i class="fas fa-arrow-left me-2"></i>Back to Home
+    <% end %>
   </div>
 
-  <div class="row">
+  <div class="row g-4">
     <% @hotels.each do |hotel| %>
-      <div class="col-md-4 mb-4">
-        <div class="card hotel-card">
-          <img src="https://source.unsplash.com/random/800x600/?hotel" class="card-img-top" alt="<%= hotel.name %>">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <%= image_tag "seaside_hotel.png", class: "card-img-top", alt: hotel.name %>
           <div class="card-body">
-            <h5 class="card-title"><%= hotel.name %></h5>
-            <p class="card-text"><i class="fas fa-map-marker-alt"></i> <%= hotel.address %></p>
-            <p class="card-text">
-              <small class="text-muted">
-                From <%= number_to_currency(hotel.rooms.minimum(:price_per_night)) %> / night
-              </small>
-            </p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="text-muted"><%= pluralize(hotel.rooms.count, 'room') %> available</span>
-              <%= link_to "View Details", hotel_path(hotel), class: "btn btn-outline-primary" %>
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div>
+                <h5 class="card-title mb-1"><%= hotel.name %></h5>
+                <p class="card-text text-muted mb-0">
+                  <i class="fas fa-map-marker-alt me-2"></i><%= hotel.address %>
+                </p>
+              </div>
+              <span class="badge bg-coral">
+                From <%= number_to_currency(hotel.rooms.minimum(:price_per_night)) %>
+              </span>
             </div>
+
+            <div class="d-flex gap-2 mb-3">
+              <span class="badge bg-light text-dark">
+                <i class="fas fa-bed me-1"></i><%= hotel.rooms.count %> Rooms
+              </span>
+              <span class="badge bg-light text-dark">
+                <i class="fas fa-wifi me-1"></i>WiFi
+              </span>
+              <span class="badge bg-light text-dark">
+                <i class="fas fa-parking me-1"></i>Parking
+              </span>
+            </div>
+
+            <%= link_to "View Details", hotel_path(hotel), class: "btn btn-outline-coral w-100" %>
           </div>
         </div>
       </div>

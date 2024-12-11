@@ -1,20 +1,34 @@
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>All Available Rooms</h1>
-    <%= link_to "Back to Home", root_path, class: "btn btn-outline-secondary" %>
+    <div>
+      <h1 class="mb-0">Our Rooms</h1>
+      <p class="text-muted">Find the perfect room for your stay</p>
+    </div>
+    <%= link_to root_path, class: "btn btn-outline-coral" do %>
+      <i class="fas fa-arrow-left me-2"></i>Back to Home
+    <% end %>
   </div>
 
-  <div class="row">
+  <div class="row g-4">
     <% @rooms.each do |room| %>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="https://source.unsplash.com/random/800x600/?hotel-room" class="card-img-top" alt="Room">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <%= image_tag "cozy_bedroom.png", class: "card-img-top", alt: "Room" %>
           <div class="card-body">
-            <h5 class="card-title">Room for <%= pluralize(room.capacity, 'person') %></h5>
-            <p class="card-text">
-              <strong><%= number_to_currency(room.price_per_night) %></strong> / night
-            </p>
-            <%= link_to "View Details", room_path(room), class: "btn btn-primary" %>
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div>
+                <h5 class="card-title mb-1">Room for <%= pluralize(room.capacity, 'person') %></h5>
+                <p class="card-text text-muted mb-0"><%= room.hotel.name %></p>
+              </div>
+              <span class="badge bg-coral"><%= number_to_currency(room.price_per_night) %></span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <p class="card-text mb-0">
+                <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                <small class="text-muted"><%= room.hotel.address %></small>
+              </p>
+              <%= link_to "View Details", room_path(room), class: "btn btn-outline-coral btn-sm" %>
+            </div>
           </div>
         </div>
       </div>

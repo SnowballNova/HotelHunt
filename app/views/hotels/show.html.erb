@@ -1,48 +1,80 @@
-<div class="container mt-4">
-  <div class="hotel-header mb-4">
-    <div class="row align-items-center">
-      <div class="col-md-8">
-        <h1><%= @hotel.name %></h1>
-        <p class="text-muted"><i class="fas fa-map-marker-alt"></i> <%= @hotel.address %></p>
-      </div>
-      <div class="col-md-4 text-md-end">
-        <%= link_to "Back to Hotels", root_path, class: "btn btn-outline-secondary" %>
-      </div>
-    </div>
-  </div>
-
+<div class="container mt-5">
   <div class="row">
     <div class="col-md-8">
-      <img src="https://source.unsplash.com/random/1200x800/?hotel" class="img-fluid rounded mb-4" alt="<%= @hotel.name %>">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1 class="mb-0"><%= @hotel.name %></h1>
+          <p class="text-muted mb-0">
+            <i class="fas fa-map-marker-alt me-2"></i><%= @hotel.address %>
+          </p>
+        </div>
+        <%= link_to hotels_path, class: "btn btn-outline-coral" do %>
+          <i class="fas fa-arrow-left me-2"></i>Back to Hotels
+        <% end %>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <%= image_tag "seaside_hotel.png", class: "card-img-top", alt: @hotel.name %>
+      </div>
+
+      <h4 class="mb-4">Available Rooms</h4>
+      <div class="row g-4">
+        <% @hotel.rooms.each do |room| %>
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <%= image_tag "cozy_bedroom.png", class: "card-img-top", alt: "Room" %>
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <h5 class="card-title mb-1">Room for <%= pluralize(room.capacity, 'person') %></h5>
+                    <p class="card-text text-muted mb-0">
+                      <i class="fas fa-bed me-2"></i>Comfortable stay
+                    </p>
+                  </div>
+                  <span class="badge bg-coral">
+                    <%= number_to_currency(room.price_per_night) %>
+                  </span>
+                </div>
+                <%= link_to "Book Now", room_path(room), class: "btn btn-outline-coral w-100" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
 
     <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Available Rooms</h5>
-          <p class="card-text">Starting from <%= number_to_currency(@hotel.rooms.minimum(:price_per_night)) %> per night</p>
-        </div>
-      </div>
-    </div>
-  </div>
+      <div class="card border-0 shadow-sm p-4 sticky-top" style="top: 20px;">
+        <h4 class="card-title mb-4">Hotel Information</h4>
 
-  <div class="rooms-section mt-4">
-    <h2 class="mb-4">Our Rooms</h2>
-    <div class="row">
-      <% @hotel.rooms.each do |room| %>
-        <div class="col-md-4 mb-4">
-          <div class="card room-card">
-            <img src="https://source.unsplash.com/random/800x600/?hotel-room" class="card-img-top" alt="Room">
-            <div class="card-body">
-              <h5 class="card-title">Room for <%= pluralize(room.capacity, 'person') %></h5>
-              <p class="card-text">
-                <strong><%= number_to_currency(room.price_per_night) %></strong> / night
-              </p>
-              <%= link_to "Book Now", new_room_booking_path(room), class: "btn btn-primary w-100" %>
-            </div>
+        <div class="mb-4">
+          <h6 class="text-muted mb-3">Amenities</h6>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-wifi me-2"></i>Free WiFi
+            </span>
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-parking me-2"></i>Parking
+            </span>
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-swimming-pool me-2"></i>Pool
+            </span>
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-concierge-bell me-2"></i>Room Service
+            </span>
           </div>
         </div>
-      <% end %>
+
+        <div>
+          <h6 class="text-muted mb-3">Contact</h6>
+          <p class="mb-2">
+            <i class="fas fa-phone me-2 text-muted"></i>+1 234 567 890
+          </p>
+          <p class="mb-0">
+            <i class="fas fa-envelope me-2 text-muted"></i>contact@<%= @hotel.name.downcase.gsub(' ', '') %>.com
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

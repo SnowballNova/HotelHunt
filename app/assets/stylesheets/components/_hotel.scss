@@ -34,3 +34,41 @@
     padding: 0.5rem 1rem;
   }
 }
+
+.badge {
+  padding: 8px 12px;
+  font-weight: 500;
+
+  &.bg-light {
+    background-color: #f8f9fa !important;
+    border: 1px solid #e9ecef;
+  }
+}
+
+.sticky-top {
+  z-index: 1020;
+}
+
+.card {
+  .card-img-top {
+    height: 250px;
+    object-fit: cover;
+
+    @media (max-width: 768px) {
+      height: 200px;
+    }
+  }
+
+  &.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+  }
+}
+
+// Hotel header image
+.col-md-8 > .card > .card-img-top {
+  height: 400px;
+
+  @media (max-width: 768px) {
+    height: 300px;
+  }
+}

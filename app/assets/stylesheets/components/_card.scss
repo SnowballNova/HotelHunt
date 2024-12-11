@@ -1,0 +1,34 @@
+.card {
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .badge {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+
+  .btn-outline-coral {
+    color: #FF5A5F;
+    border-color: #FF5A5F;
+    border-width: 1.5px;
+
+    &:hover {
+      color: white;
+      background-color: #FF5A5F;
+      border-color: #FF5A5F;
+    }
+  }
+}
+
+// Coral color utilities
+.bg-coral {
+  background-color: #FF5A5F !important;
+}
