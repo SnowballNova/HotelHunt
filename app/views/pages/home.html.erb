@@ -1,16 +1,29 @@
-<div class="header">
-  <div class="header-content">
-    <h1>Find Your Perfect Room at the Best Price</h1>
+<div class="banner">
+  <div class="container">
+    <h1>Find your perfect stay</h1>
     <p>Discover a variety of affordable rooms, from cozy stays to luxurious getaways, and book instantly.</p>
+    <%= link_to "View All Hotels", hotels_path, class: "btn btn-light" %>
+  </div>
+</div>
 
-    <%= form_with url: bedrooms_path, method: :get, class: "search-form" do |f| %>
-      <div class="search-bar">
-        <%= f.text_field :query,
-            placeholder: "Enter a city",
-            class: "search-input",
-            value: params[:query]
-        %>
-        <%= f.submit "Search", class: "btn btn-dark" %>
+<div class="container mt-5">
+  <h2 class="mb-4">Featured Hotels</h2>
+  <div class="row">
+    <% @hotels.first(4).each do |hotel| %>
+      <div class="col-md-3">
+        <div class="card hotel-card">
+          <img src="https://source.unsplash.com/random/800x600/?hotel" class="card-img-top" alt="<%= hotel.name %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= hotel.name %></h5>
+            <p class="card-text"><%= hotel.address %></p>
+            <p class="card-text">
+              <small class="text-muted">
+                From <%= number_to_currency(hotel.rooms.minimum(:price_per_night)) %> / night
+              </small>
+            </p>
+            <%= link_to "View Details", hotel_path(hotel), class: "btn btn-outline-primary" %>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>

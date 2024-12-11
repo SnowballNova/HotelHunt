@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Our Hotels</h1>
+    <%= link_to "Back to Home", root_path, class: "btn btn-outline-secondary" %>
+  </div>
+
+  <div class="row">
+    <% @hotels.each do |hotel| %>
+      <div class="col-md-4 mb-4">
+        <div class="card hotel-card">
+          <img src="https://source.unsplash.com/random/800x600/?hotel" class="card-img-top" alt="<%= hotel.name %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= hotel.name %></h5>
+            <p class="card-text"><i class="fas fa-map-marker-alt"></i> <%= hotel.address %></p>
+            <p class="card-text">
+              <small class="text-muted">
+                From <%= number_to_currency(hotel.rooms.minimum(:price_per_night)) %> / night
+              </small>
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted"><%= pluralize(hotel.rooms.count, 'room') %> available</span>
+              <%= link_to "View Details", hotel_path(hotel), class: "btn btn-outline-primary" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
