@@ -6,13 +6,25 @@ class BookingsController < ApplicationController
 
   def create
     @room = Room.find(params[:room_id])
-    @booking = @room.bookings.build(booking_params)
+    @booking = Booking.new(booking_params)
+    @booking.room = @room
     @booking.user = current_user
 
-    if @booking.save
-      redirect_to @room, notice: 'Booking was successfully created.'
+    # Split the range into start and end dates if it's a single input
+    if params[:booking][:starts_at].present? && params[:booking][:starts_at].include?(" to ")
+      start_date, end_date = params[:booking][:starts_at].split(" to ").map(&:strip)
+      @booking.starts_at = start_date
+      @booking.ends_at = end_date
+    end
+
+    if @booking.starts_at.present? && @booking.ends_at.present?
+      if @booking.save
+        redirect_to room_path(@room), notice: "Booking was successfully created!"
+      else
+        redirect_to room_path(@room), alert: "Could not create booking. #{@booking.errors.full_messages.join(', ')}"
+      end
     else
-      render :new, status: :unprocessable_entity
+      redirect_to room_path(@room), alert: "Please select check-in and check-out dates"
     end
   end
 

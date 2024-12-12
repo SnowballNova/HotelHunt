@@ -1,8 +1,8 @@
 // Import and register all your controllers from the importmap under controllers/*
 
 import { application } from "./application"
-import FlatpickrController from "./flatpickr_controller"
-application.register("flatpickr", FlatpickrController)
+import DatepickerController from "./datepicker_controller"
+application.register("datepicker", DatepickerController)
 
 // Eager load all controllers defined in the import map under controllers/**/*_controller
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"

@@ -1,20 +1,40 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
-      <i class="fas fa-hotel navbar-logo me-2"></i>
-      <h3 class="logo mb-0">HotelHunt</h3>
+    <%= link_to root_path, class: "navbar-brand d-flex align-items-center text-white" do %>
+      <i class="fas fa-hotel me-2"></i>
+      <span>HotelHunt</span>
     <% end %>
 
-    <% if user_signed_in? %>
-      <%= link_to "Log out",
-                  destroy_user_session_path,
-                  data: { turbo_method: :delete },
-                  class: "btn btn-outline-light" %>
-    <% else %>
-      <div class="d-flex align-items-center">
-        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-        <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-light ms-2" %>
-      </div>
-    <% end %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to dashboard_path, class: "nav-link text-white" do %>
+              <i class="fas fa-columns me-2"></i>Dashboard
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to edit_user_registration_path, class: "nav-link text-white" do %>
+              <i class="fas fa-user-edit me-2"></i>Edit Profile
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "nav-link text-white" do %>
+              <i class="fas fa-sign-out-alt me-2"></i>Log out
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to new_user_session_path, class: "nav-link text-white" do %>
+              <i class="fas fa-sign-in-alt me-2"></i>Login
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
