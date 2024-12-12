@@ -1,0 +1,58 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="mb-0">My Bookings</h1>
+      <p class="text-muted">Manage your upcoming and past stays</p>
+    </div>
+    <%= link_to rooms_path, class: "btn btn-outline-coral" do %>
+      <i class="fas fa-search me-2"></i>Browse Rooms
+    <% end %>
+  </div>
+
+  <% if current_user.bookings.any? %>
+    <div class="row g-4">
+      <% current_user.bookings.order(starts_at: :desc).each do |booking| %>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <%= image_tag "cozy_bedroom.png", class: "card-img-top", alt: "Room" %>
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <h5 class="card-title mb-1">Room for <%= pluralize(booking.room.capacity, 'person') %></h5>
+                  <p class="card-text text-muted mb-0">
+                    <i class="fas fa-hotel me-2"></i><%= booking.room.hotel.name %>
+                  </p>
+                </div>
+                <span class="badge bg-coral">
+                  <%= number_to_currency(booking.room.price_per_night) %>
+                </span>
+              </div>
+
+              <div class="mb-3">
+                <p class="card-text mb-1">
+                  <i class="fas fa-calendar-check text-muted me-2"></i>Check-in: <%= booking.starts_at.strftime("%B %d, %Y") %>
+                </p>
+                <p class="card-text">
+                  <i class="fas fa-calendar-times text-muted me-2"></i>Check-out: <%= booking.ends_at.strftime("%B %d, %Y") %>
+                </p>
+              </div>
+
+              <%= link_to room_path(booking.room), class: "btn btn-outline-coral w-100" do %>
+                <i class="fas fa-eye me-2"></i>View Room
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-5">
+      <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+      <h3>No bookings yet</h3>
+      <p class="text-muted">Start exploring rooms and book your perfect stay!</p>
+      <%= link_to rooms_path, class: "btn btn-coral mt-3" do %>
+        <i class="fas fa-search me-2"></i>Browse Rooms
+      <% end %>
+    </div>
+  <% end %>
+</div>

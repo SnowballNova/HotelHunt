@@ -1,20 +1,20 @@
 import { Controller } from "@hotwired/stimulus"
 import flatpickr from "flatpickr"
-import rangePlugin from "flatpickr/dist/plugins/rangePlugin"
 
+// Connects to data-controller="flatpickr"
 export default class extends Controller {
   static targets = [ "startTime", "endTime" ]
 
   connect() {
     flatpickr(this.startTimeTarget, {
+      mode: "range",
       minDate: "today",
       dateFormat: "Y-m-d",
-      plugins: [new rangePlugin({ input: "#booking_ends_at" })],
-      onChange: function(selectedDates, dateStr, instance) {
-        // Set minimum date for end date to be the selected start date
-        if (selectedDates[0]) {
-          const endDatePicker = document.querySelector("#booking_ends_at")._flatpickr
-          endDatePicker.set("minDate", selectedDates[0])
+      altInput: true,
+      altFormat: "F j, Y",
+      onChange: (selectedDates) => {
+        if (selectedDates.length === 2) {
+          this.endTimeTarget.value = selectedDates[1].toISOString().split('T')[0]
         }
       }
     })

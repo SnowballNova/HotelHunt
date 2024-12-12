@@ -2,8 +2,13 @@
   <div class="row">
     <div class="col-md-8">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Room Details</h1>
-        <%= link_to rooms_path, class: "btn btn-outline-coral" do %>
+        <div>
+          <h1 class="mb-0">Room for <%= pluralize(@room.capacity, 'person') %></h1>
+          <p class="text-muted mb-0">
+            <i class="fas fa-hotel me-2"></i><%= @room.hotel.name %>
+          </p>
+        </div>
+        <%= link_to rooms_path, class: "btn btn-outline-coral", id: "back-to-rooms" do %>
           <i class="fas fa-arrow-left me-2"></i>Back to Rooms
         <% end %>
       </div>
@@ -14,44 +19,45 @@
 
       <div class="card border-0 shadow-sm">
         <div class="card-body">
-          <h5 class="card-title">Room for <%= pluralize(@room.capacity, 'person') %></h5>
+          <h5 class="card-title">Room Details</h5>
           <p class="card-text">
-            <strong><%= number_to_currency(@room.price_per_night) %></strong> / night
+            <i class="fas fa-map-marker-alt text-muted me-2"></i><%= @room.hotel.address %>
           </p>
           <p class="card-text">
-            <i class="fas fa-map-marker-alt text-muted me-2"></i>
-            <%= @room.hotel.address %>
+            <i class="fas fa-users text-muted me-2"></i>Capacity: <%= pluralize(@room.capacity, 'person') %>
+          </p>
+          <p class="card-text">
+            <i class="fas fa-euro-sign text-muted me-2"></i>Price per night: <%= number_to_currency(@room.price_per_night) %>
           </p>
         </div>
       </div>
     </div>
 
     <div class="col-md-4">
-      <div class="card border-0 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title mb-4">Book this room</h5>
+      <div class="card border-0 shadow-sm p-4 sticky-top" style="top: 20px;">
+        <h4 class="card-title mb-4">Book this room</h4>
 
-          <%= simple_form_for([@room, Booking.new], html: { data: { controller: "flatpickr" } }) do |f| %>
+        <%= simple_form_for([@room, Booking.new], html: { id: "new_booking" }) do |f| %>
+          <div class="booking_starts_at">
             <%= f.input :starts_at,
                         as: :string,
                         label: "Select dates",
-                        placeholder: "Check-in ➝ Check-out",
-                        wrapper_html: { class: "mb-3" },
+                        placeholder: "Select your dates",
                         input_html: {
-                          data: { flatpickr_target: "startTime" }
+                          data: { controller: "datepicker" },
+                          class: "form-control datepicker"
                         } %>
 
             <%= f.input :ends_at,
                         as: :string,
                         label: false,
                         input_html: {
-                          data: { flatpickr_target: "endTime" },
                           class: "d-none"
                         } %>
+          </div>
 
-            <%= f.submit "Book Now", class: "btn btn-coral w-100" %>
-          <% end %>
-        </div>
+          <%= f.submit "Book Now", class: "btn btn-coral w-100" %>
+        <% end %>
       </div>
     </div>
   </div>
