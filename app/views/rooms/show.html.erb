@@ -8,8 +8,11 @@
         <% end %>
       </div>
 
+      <div class="card border-0 shadow-sm mb-4">
+        <%= image_tag "cozy_bedroom.png", class: "card-img-top", alt: "Room" %>
+      </div>
+
       <div class="card border-0 shadow-sm">
-        <img src="https://source.unsplash.com/random/800x600/?hotel-room" class="card-img-top" alt="Room">
         <div class="card-body">
           <h5 class="card-title">Room for <%= pluralize(@room.capacity, 'person') %></h5>
           <p class="card-text">
